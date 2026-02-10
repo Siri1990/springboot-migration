@@ -3,6 +3,7 @@ package com.example.controller;
 import java.util.List;
 
 import lombok.Data;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,7 @@ public class MigrateController {
     }
 
     @GetMapping("recordPattern")
-    public String getRecordPattern(@RequestParam int x, @RequestParam int y) {
+    public String getRecordPattern(@Valid @RequestParam int x, @RequestParam int y) {
         return migrateService.demonstrateRecordPattern(x, y);
     }
 

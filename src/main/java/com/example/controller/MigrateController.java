@@ -3,6 +3,7 @@ package com.example.controller;
 import java.util.List;
 
 import lombok.Data;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +61,7 @@ public class MigrateController {
     }
 
     @GetMapping("recordPattern")
-    public String getRecordPattern(@RequestParam int x, @RequestParam int y) {
+    public String getRecordPattern(@Valid @RequestParam int x, @RequestParam int y) {
         return migrateService.demonstrateRecordPattern(x, y);
     }
 
@@ -111,5 +112,23 @@ public class MigrateController {
     @GetMapping("addStudent")
     public Student addStudent(@RequestParam String name) {
         return studentRepository.save(new Student(null, name));
+    }
+
+    @GetMapping("legacyThreads")
+    public String getLegacyThreads() {
+        migrateService.demonstrateLegacyThreadMethods();
+        return "Legacy thread methods executed";
+    }
+
+    @GetMapping("runFinalization")
+    public String getRunFinalization() {
+        migrateService.demonstrateFinalization();
+        return "Runtime.runFinalization() executed";
+    }
+
+    @GetMapping("finalize")
+    public String callFinalize() throws Throwable {
+        migrateService.finalize();
+        return "finalize() called manually";
     }
 }
